@@ -4,12 +4,12 @@
  * Modern Invoice Generator Example
  *
  * This example demonstrates the new API for generating invoices
- * using the refactored Danek\InvoiceGenerator library.
+ * using the refactored Kenod\InvoiceGenerator library.
  */
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Danek\InvoiceGenerator\InvoiceGenerator;
+use Kenod\InvoiceGenerator\InvoiceGenerator;
 
 // Create new invoice generator instance
 $invoice = new InvoiceGenerator();

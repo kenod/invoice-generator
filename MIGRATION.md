@@ -1,6 +1,6 @@
-# Migration Guide: WFPfaktury v2.x → Danek\InvoiceGenerator v3.0
+# Migration Guide: WFPfaktury v2.x → Kenod\InvoiceGenerator v3.0
 
-This guide will help you migrate from the old `WFPfaktury` class to the new refactored `Danek\InvoiceGenerator` library.
+This guide will help you migrate from the old `WFPfaktury` class to the new refactored `Kenod\InvoiceGenerator` library.
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ $pdf = new \WFPfaktury\WFPfaktury();
 ### New (v3.0)
 ```php
 require 'vendor/autoload.php';
-use Danek\InvoiceGenerator\InvoiceGenerator;
+use Kenod\InvoiceGenerator\InvoiceGenerator;
 
 $invoice = new InvoiceGenerator();
 ```
@@ -258,7 +258,7 @@ $pdf = new \WFPfaktury\WFPfaktury();
 
 **New:**
 ```php
-use Danek\InvoiceGenerator\InvoiceGenerator;
+use Kenod\InvoiceGenerator\InvoiceGenerator;
 $invoice = new InvoiceGenerator();
 ```
 
@@ -345,7 +345,7 @@ $pdf->generuj();
 <?php
 require 'vendor/autoload.php';
 
-use Danek\InvoiceGenerator\InvoiceGenerator;
+use Kenod\InvoiceGenerator\InvoiceGenerator;
 
 $invoice = new InvoiceGenerator();
 

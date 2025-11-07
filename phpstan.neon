@@ -5,19 +5,6 @@ parameters:
     ignoreErrors:
         # TCPDF has some type issues
         - '#Call to method [a-zA-Z]+\(\) on an unknown class TCPDF#'
-    strictRules:
-        allRules: false
-        booleansInConditions: true
-        uselessCast: true
-        requireParentConstructorCall: true
-        disallowedConstructs: true
-        overwriteVariablesWithLoop: true
-        closureUsesThis: true
-        matchingInheritedMethodNames: true
-        numericOperandsInArithmeticOperators: true
-        strictCalls: true
-        switchConditionsMatchingType: true
-        noVariableVariables: true
     checkMissingCallableSignature: true
     checkTooWideReturnTypesInProtectedAndPublicMethods: true
     checkUninitializedProperties: true

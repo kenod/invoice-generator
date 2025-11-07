@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WFP Invoice Coding Standard">
-    <description>Slevomat Coding Standard for WFP Invoice Library</description>
+<ruleset name="InvoiceGenerator Coding Standard">
+    <description>Slevomat Coding Standard for InvoiceGenerator Library</description>
 
     <!-- Show colors in console -->
     <arg value="-colors"/>
@@ -8,156 +8,47 @@
     <!-- Show progress -->
     <arg value="p"/>
 
+    <!-- Set tab width to 4 spaces -->
+    <arg name="tab-width" value="4"/>
+
     <!-- Paths to check -->
     <file>src</file>
 
-    <!-- Include PSR-12 standard -->
-    <rule ref="PSR12"/>
+    <config name="basePath" value="./src"/>
 
     <!-- Include Slevomat Coding Standard -->
-    <config name="installed_paths" value="../../slevomat/coding-standard"/>
+    <rule ref="SlevomatCodingStandard"/>
 
-    <!-- Functional - improving the safety and behaviour of code -->
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
-        <properties>
-            <property name="spacesCountAroundEqualsSign" value="0"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
-    <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/>
-    <rule ref="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion"/>
-    <rule ref="SlevomatCodingStandard.Classes.UselessLateStaticBinding"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
-    <rule ref="SlevomatCodingStandard.Functions.StrictCall"/>
-    <rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
-    <rule ref="SlevomatCodingStandard.PHP.DisallowDirectMagicInvokeCall"/>
-    <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
-    <rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
-
-    <!-- Cleaning - detecting dead code -->
-    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousErrorNaming"/>
-    <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
-    <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
-    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
-    <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
-        <properties>
-            <property name="searchAnnotations" value="true"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
-    <rule ref="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
-    <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
-    <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>
-    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
-    <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable"/>
-    <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable"/>
-    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
-    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
-    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
-
-    <!-- Formatting - rules for consistent code looks -->
-    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
-    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
-    <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing"/>
-    <rule ref="SlevomatCodingStandard.Classes.ConstantSpacing"/>
-    <rule ref="SlevomatCodingStandard.Classes.MethodSpacing"/>
-    <rule ref="SlevomatCodingStandard.Classes.ParentCallSpacing"/>
-    <rule ref="SlevomatCodingStandard.Classes.PropertySpacing"/>
-    <rule ref="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature">
-        <properties>
-            <property name="minLineLength" value="121"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature">
-        <properties>
-            <property name="maxLineLength" value="120"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
-    <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.NewWithParentheses"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator"/>
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireShortTernaryOperator"/>
-    <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>
-    <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction"/>
-    <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing"/>
-    <rule ref="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator"/>
-    <rule ref="SlevomatCodingStandard.PHP.ReferenceSpacing"/>
-    <rule ref="SlevomatCodingStandard.Operators.NegationOperatorSpacing"/>
-    <rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
-    <rule ref="SlevomatCodingStandard.PHP.ShortList"/>
-    <rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
-    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces"/>
-    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
-        <properties>
-            <property name="rootNamespaces" type="array">
-                <element key="src" value="Danek\InvoiceGenerator"/>
-            </property>
-        </properties>
-    </rule>
-
-    <!-- Documenting -->
-    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
-        <properties>
-            <property name="linesCountBeforeFirstContent" value="0"/>
-            <property name="linesCountAfterLastContent" value="0"/>
-            <property name="linesCountBetweenDescriptionAndAnnotations" value="1"/>
-            <property name="linesCountBetweenAnnotationsGroups" value="1"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenAnnotations">
-        <properties>
-            <property name="forbiddenAnnotations" type="array">
-                <element value="@author"/>
-                <element value="@created"/>
-                <element value="@version"/>
-                <element value="@package"/>
-                <element value="@copyright"/>
-                <element value="@license"/>
-            </property>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments">
-        <properties>
-            <property name="forbiddenCommentPatterns" type="array">
-                <element value="~^(?:(?!private|protected|static)\S+ )?(?:con|de)structor\.\z~i"/>
-                <element value="~^Created by \S+\.\z~i"/>
-                <element value="~^\S+ [gs]etter\.\z~i"/>
-            </property>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
-    <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
+    <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace"/>
 
     <!-- Complexity -->
     <rule ref="SlevomatCodingStandard.Complexity.Cognitive">
         <properties>
-            <property name="maxComplexity" value="10"/>
+            <property name="maxComplexity" value="12"/>
         </properties>
     </rule>
 
+    <!-- Use tabs for indentation -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="tabIndent" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Allow tabs -->
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Strict type hint format -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DNFTypeHintFormat"/>
+
+    <!-- Type name must match file name -->
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="src/Kenod/InvoiceGenerator" value="Kenod\InvoiceGenerator"/>
+            </property>
+        </properties>
+    </rule>
 </ruleset>

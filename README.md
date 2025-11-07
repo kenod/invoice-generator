@@ -1,4 +1,4 @@
-# Danek Invoice Generator
+# Invoice Generator
 
 Professional PHP library for generating PDF invoices, proforma invoices, credit notes, and other accounting documents with QR payment codes, IBAN validation, and multi-language support.
 
@@ -24,7 +24,7 @@ Professional PHP library for generating PDF invoices, proforma invoices, credit 
 ## Installation
 
 ```bash
-composer require danek/invoice-generator
+composer require kenod/invoice-generator
 ```
 
 ## Quick Start
@@ -32,7 +32,7 @@ composer require danek/invoice-generator
 ```php
 <?php
 
-use Danek\InvoiceGenerator\InvoiceGenerator;
+use Kenod\InvoiceGenerator\InvoiceGenerator;
 
 // Create new invoice generator
 $invoice = new InvoiceGenerator();
@@ -224,7 +224,7 @@ $pdf->generuj();
 
 **New code (v3.0):**
 ```php
-use Danek\InvoiceGenerator\InvoiceGenerator;
+use Kenod\InvoiceGenerator\InvoiceGenerator;
 
 $invoice = new InvoiceGenerator();
 $invoice->supplier->setCompany('Company');
@@ -234,7 +234,7 @@ $invoice->generate();
 ```
 
 ### Key Changes:
-- Namespace: `WFPfaktury` → `Danek\InvoiceGenerator`
+- Namespace: `WFPfaktury` → `Kenod\InvoiceGenerator`
 - Main class: `WFPfaktury` → `InvoiceGenerator`
 - All method names now use camelCase: `SetX()` → `setX()`
 - All property names translated to English
