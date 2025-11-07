@@ -1,0 +1,76 @@
+﻿Smlouva o poskytnutí licence
+===========================
+
+Smluvní strany: 
+
+1.	Ing. Petr Daněk 
+756 55, Dolní Bečva 343
+IČ: 86975943 
+Tel.:	732 253 134 
+(dále jen „poskytovatel licence“) 
+
+2.	Koncový uživatel - nabyvatel omezených práv k užití SW 
+(dále jen „nabyvatel“) 
+
+Definice: 
+
+Pojmem „softwarový produkt“ se označuje aplikace určená k vytváření PDF faktur napsaná v jazyce PHP. Součástí produktu jsou zdrojové kódy v jazyce PHP potřebné pro běh této aplikace. Dodané zdrojové kódy obsahují fonty, kódy, případně další součásti třetích stran, které nejsou součástí softwarového produktu a na které se tato licence nevztahuje – u těchto je potřeba dodržet jejich specifické licenční podmínky. Licence dle této smlouvy se vztahuje na soubor class.wfpfaktury.php.
+
+
+I. Předmět smlouvy
+------------------
+
+Předmětem této smlouvy je poskytnutí nevýhradní licence k užívání softwarového produktu v rozsahu stanoveném touto licenční smlouvou. Licence dle této smlouvy neopravňuje nabyvatele k nakládání se softwarovým produktem jiným způsobem, než je upraveno touto smlouvou. 
+
+1. Přípustné použití softwarového produktu nabyvatelem 
+
+Na základě této licenční smlouvy se nabyvateli udělují tyto práva: 
+Instalovat, provozovat, otevírat, prohlížet, či jiným způsobem užívat softwarovový produkt. Nabyvatel může měnit zdrojové kódy kopie softwarového produktu, avšak výsledný upravený kód může použít pouze pro vlastní potřeby a nesmí jej poskytnout třetí osobě. V rámci úprav zdrojového kódu musí být zachována hlavička souboru obsahující údaje o softwarovém produktu. Také můsí být zachována patička výsledného PDF dokumentu, ve které je informace o softwarovém produktu, kterým bylo dané PDF vygenerováno. Patičku výsledného PDF lze modifikovat pouze po udělení souhlasu poskytovatele licence a to při zakoupení rozšířené licence. 
+  
+2. Nepřípustné použití softwarového produktu nabyvatelem 
+
+Bez svolení poskytovatele licence je zakázáno šířit softwarový produkt jako součást jiné aplikace. Je zakázáno softwarový produkt, nebo jeho části podléhající této licenční smlouvě, pronajímat, sdílet, poskytnout sublicenci třetím osobám, nebo jiným způsobem umožnit třetím osobám jeho využití, s výjimkou případů kdy: 
+a)	právě jedna třetí osoba zajišťuje provozní potřeby nabyvatele, např. externí programátor nabyvatele. 
+V uvedených případech musí nabyvatel zajistit znemožnění zneužití poskytnutých kódů aplikace třetí osobou. 
+
+3. Předání softwarového produktu 
+Po uhrazení poplatku za licenci budou nabyvateli předány zdrojové kódy softwarového produktu a to elektronickou formou. 
+
+4. Aktualizace softwarového produktu 
+Případné budoucí aktualizace softwarového produktu budou poskytnuty nabyvateli bezúplatně. U těchto aktualizací není zaručena kompatibilita se zdrojovými kódy nabyvatele. Poskytovatel licence není povinen poskytovat tyto aktualizace. Jejich vydání záleží čistě na časových možnostech a rozhodnutí poskytovatele licence. 
+
+5. Cena licence 
+Smluvní strany se dohodly na poskytnutí licence k softwarovému produktu za úplatu. Výše ceny je stanovena vzájemnou domluvou mezi smluvními stranami - dle druhu poskytnuté licence. 
+
+6. Souhlas 
+Provedením úhrady za poskytnutí licence vyjadřuje nabyvatel souhlas s touto smlouvou a všemi licenčními podmínkami. Nabyvatel vyjadřuje závazek dodržovat všechna ustanovení této smlouvy. 
+
+7. Důvěrné informace 
+Informace předávané v souvislosti se softwarovým produktem jsou považovány za důvěrné a je zakázáno je šířit mezi třetí osoby. Jedná se zejména o přístupové údaje k úložišti zdrojových kódů. 
+
+II. Záruční podmínky
+--------------------
+
+Softwarový produkt slouží k vytváření účetních dokladů v elektronické podobě. Za obsah těchto dokladů je plně zodpovědný nabyvatel. Poskytovatel licence nezaručuje, že softwarovým produktem vytvářené doklady budou obsahově, či formátově odpovídat požadavkům státní správy, úřadů, případně dalších institucí, kterým budou doklady předány. Nabyvatel je s tímto seznámen a srozuměn. 
+Poskytovatel licence garantuje plnou funkcionalitu softwarového produktu pouze za předpokladu splnění systémových požadavků kladených na softwarový produkt. 
+Nabyvatel prohlašuje, že se s příslušným softwarovým produktem, jeho systémovými požadavky a jeho funkcemi seznámil prostřednictvím webových stránek http://faktury.chci-www.cz. Softwarový produkt svými nároky, funkcemi a pojetím nabyvateli vyhovuje. 
+
+
+III. Odpovědnost za škody
+-------------------------
+
+Softwarový produkt je poskytován ve stavu "jak stojí a leží", s kterým se nabyvatel seznámil a jakékoliv výslovné nebo předpokládané záruky včetně, ale nejen, předpokládaných obchodních záruk a záruky vhodnosti pro jakýkoliv účel jsou popřeny. Poskytovatel licence nebude v žádném případě odpovědný za jakékoliv přímé, nepřímé, náhodné, zvláštní, příkladné nebo vyplývající škody (včetně, ale nejen, škod vzniklých narušením dodávek zboží nebo služeb; ztrátou použitelnosti, dat nebo zisků; nebo přerušením obchodní činnosti) jakkoliv způsobené na základě jakékoliv teorie o zodpovědnosti, ať už plynoucí z jiného smluvního vztahu, určité zodpovědnosti nebo přečinu (včetně nedbalosti) na jakémkoliv způsobu použití tohoto software, i v případě, že nabyvatel práv byl upozorněn na možnost takových škod. 
+
+Poskytovatel licence nenese odpovědnost za ušlý zisk nabyvatele. 
+
+Poskytovatel licence v žádném případě neodpovídá za správnost výstupů softwarového produktu. 
+
+V žádném případě celková výše náhrady škody způsobené případným porušením smluvních či zákonných povinností ze strany poskytovatele licence nepřevýší částku zaplacenou nabyvatelem za poskytnutí této licence a to bez ohledu na výši a druh uplatňované náhrady škod. 
+
+
+IV. Závěrečná ustanovení
+------------------------
+
+V případě neplatnosti anebo neúčinnosti jednotlivých bodů těchto podmínek zůstávají ostatní ustanovení a smlouvy, které byly na jejich základě uzavřeny v platnosti. Smluvní strany se zavazují nahradit neplatné ustanovení platnými, které se nejvíce přibližují účelu uzavřené smlouvy. 
+
+Tato smlouva představuje vzájemné pochopení smluvních stran a souhlas ohledně všech předchozích ujednání. Smluvní strany prohlašují, že smlouva byla uzavřena po oboustranném souhlasu a z jejich výslovné, vážné a svobodné vůle, nikoli v tísni či za nevýhodných podmínek.

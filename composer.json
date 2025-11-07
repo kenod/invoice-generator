@@ -1,0 +1,53 @@
+{
+    "name": "wfp/faktury",
+    "description": "Professional PHP library for generating PDF invoices, proforma invoices, and other accounting documents with QR payment codes, IBAN validation, and multi-language support",
+    "type": "library",
+    "keywords": ["invoice", "pdf", "faktura", "tcpdf", "billing", "qr-payment", "iban"],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Petr Daněk",
+            "email": "danek@chci-www.cz",
+            "homepage": "https://www.danekpetr.cz"
+        }
+    ],
+    "require": {
+        "php": "^8.3 || ^8.4",
+        "tecnickcom/tcpdf": "^6.2"
+    },
+    "require-dev": {
+        "slevomat/coding-standard": "^8.15",
+        "squizlabs/php_codesniffer": "^3.11",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WFP\\Invoice\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WFP\\Invoice\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpcs": "phpcs --standard=phpcs.xml",
+        "phpcbf": "phpcbf --standard=phpcs.xml",
+        "phpstan": "phpstan analyse -c phpstan.neon",
+        "test": "phpunit",
+        "check": [
+            "@phpcs",
+            "@phpstan",
+            "@test"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
