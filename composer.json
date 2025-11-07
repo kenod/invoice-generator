@@ -1,8 +1,8 @@
 {
-    "name": "wfp/faktury",
+    "name": "danek/invoice-generator",
     "description": "Professional PHP library for generating PDF invoices, proforma invoices, and other accounting documents with QR payment codes, IBAN validation, and multi-language support",
     "type": "library",
-    "keywords": ["invoice", "pdf", "faktura", "tcpdf", "billing", "qr-payment", "iban"],
+    "keywords": ["invoice", "pdf", "faktura", "tcpdf", "billing", "qr-payment", "iban", "czech", "invoice-generator"],
     "license": "proprietary",
     "authors": [
         {
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "WFP\\Invoice\\": "src/"
+            "Danek\\InvoiceGenerator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "WFP\\Invoice\\Tests\\": "tests/"
+            "Danek\\InvoiceGenerator\\Tests\\": "tests/"
         }
     },
     "scripts": {

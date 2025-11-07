@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WFP\Invoice;
+namespace Danek\InvoiceGenerator;
 
 /**
  * Represents an address (supplier, customer, or final recipient)

@@ -115,7 +115,7 @@
     <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
         <properties>
             <property name="rootNamespaces" type="array">
-                <element key="src" value="WFP\Invoice"/>
+                <element key="src" value="Danek\InvoiceGenerator"/>
             </property>
         </properties>
     </rule>

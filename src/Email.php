@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WFP\Invoice;
+namespace Danek\InvoiceGenerator;
 
 /**
  * Email configuration for sending invoices via email

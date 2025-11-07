@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WFP\Invoice;
+namespace Danek\InvoiceGenerator;
 
 /**
  * Payment details section of invoice

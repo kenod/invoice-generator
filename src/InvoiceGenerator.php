@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WFP\Invoice;
+namespace Danek\InvoiceGenerator;
 
 use TCPDF;
 
@@ -19,7 +19,7 @@ use TCPDF;
  *
  * Extends TCPDF for PDF generation capabilities
  */
-class Invoice extends TCPDF
+class InvoiceGenerator extends TCPDF
 {
     public Address $supplier;
 

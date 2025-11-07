@@ -1,6 +1,8 @@
-# WFP Invoice Library
+# Danek Invoice Generator
 
 Professional PHP library for generating PDF invoices, proforma invoices, credit notes, and other accounting documents with QR payment codes, IBAN validation, and multi-language support.
+
+> **Migrating from v2.x?** See the [Migration Guide](MIGRATION.md) for step-by-step instructions.
 
 ## Features
 
@@ -22,7 +24,7 @@ Professional PHP library for generating PDF invoices, proforma invoices, credit 
 ## Installation
 
 ```bash
-composer require wfp/faktury
+composer require danek/invoice-generator
 ```
 
 ## Quick Start
@@ -30,10 +32,10 @@ composer require wfp/faktury
 ```php
 <?php
 
-use WFP\Invoice\Invoice;
+use Danek\InvoiceGenerator\InvoiceGenerator;
 
-// Create new invoice
-$invoice = new Invoice();
+// Create new invoice generator
+$invoice = new InvoiceGenerator();
 
 // Set supplier information
 $invoice->supplier
@@ -201,20 +203,30 @@ composer check
 
 ## Migration from Version 2.x
 
-If you're upgrading from the old WFPfaktury class:
+If you're upgrading from the old WFPfaktury class, please read the **[complete Migration Guide](MIGRATION.md)** which includes:
 
-**Old code:**
+- Complete property name mapping
+- Complete method name mapping
+- Step-by-step migration instructions
+- Side-by-side code comparisons
+- List of removed deprecated methods
+
+**Quick example:**
+
+**Old code (v2.x):**
 ```php
-$faktura = new \WFPfaktury\WFPfaktury();
-$faktura->dodavatel->SetFirma('Company');
-$faktura->nastaveni->SetCisloFaktury('001');
-$faktura->pridejPolozku('Item', 1, 100);
-$faktura->generuj();
+$pdf = new \WFPfaktury\WFPfaktury();
+$pdf->dodavatel->SetFirma('Company');
+$pdf->nastaveni->SetCisloFaktury('001');
+$pdf->pridejPolozku('Item', 1, 100);
+$pdf->generuj();
 ```
 
-**New code:**
+**New code (v3.0):**
 ```php
-$invoice = new \WFP\Invoice\Invoice();
+use Danek\InvoiceGenerator\InvoiceGenerator;
+
+$invoice = new InvoiceGenerator();
 $invoice->supplier->setCompany('Company');
 $invoice->settings->setInvoiceNumber('001');
 $invoice->addItem('Item', 1, 100);
@@ -222,12 +234,14 @@ $invoice->generate();
 ```
 
 ### Key Changes:
-- Namespace changed from `WFPfaktury` to `WFP\Invoice`
-- Class names translated to English
-- Method names changed from `SetX()` to `setX()` (camelCase)
-- Czech property names translated: `dodavatel` → `supplier`, `nastaveni` → `settings`, etc.
-- Method `generuj()` → `generate()`
-- Method `pridejPolozku()` → `addItem()`
+- Namespace: `WFPfaktury` → `Danek\InvoiceGenerator`
+- Main class: `WFPfaktury` → `InvoiceGenerator`
+- All method names now use camelCase: `SetX()` → `setX()`
+- All property names translated to English
+- PHP 8.3/8.4 required
+- Deprecated methods removed
+
+See [MIGRATION.md](MIGRATION.md) for complete details.
 
 ## License
 

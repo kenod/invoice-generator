@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WFP\Invoice;
+namespace Danek\InvoiceGenerator;
 
 /**
  * IBAN and QR payment code generator for Czech bank accounts
