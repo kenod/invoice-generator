@@ -1,13 +1,11 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Kenod\InvoiceGenerator;
 
 /**
  * Handles translation/localization for invoices
  */
-final class Translation {
+final class Translator {
 	/**
 	 * Loaded translations array
 	 *
@@ -16,9 +14,11 @@ final class Translation {
 	protected static ?array $translations = null;
 
 	public static function loadTranslations(string $filePath): void {
-		if (is_file($filePath)) {
-			self::$translations = require $filePath;
+		if (!is_file($filePath)) {
+			return;
 		}
+
+		self::$translations = require $filePath;
 	}
 
 	/**

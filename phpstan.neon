@@ -2,9 +2,6 @@ parameters:
     level: 8
     paths:
         - src
-    ignoreErrors:
-        # TCPDF has some type issues
-        - '#Call to method [a-zA-Z]+\(\) on an unknown class TCPDF#'
     checkMissingCallableSignature: true
     checkTooWideReturnTypesInProtectedAndPublicMethods: true
     checkUninitializedProperties: true

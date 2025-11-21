@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Kenod\InvoiceGenerator;
 
@@ -17,11 +15,6 @@ final class Iban {
 	private static ?string $bic = null;
 
 	/**
-	 * @var list<string>
-	 */
-	private static array $errors = [];
-
-	/**
 	 * Generates IBAN from Czech account number
 	 *
 	 * @param string|int $account Account number (without prefix and bank code)
@@ -34,16 +27,18 @@ final class Iban {
 		string|int $account,
 		string|int $bankCode,
 		string|int $accountPrefix = '',
-		bool       $onlyValidBic = false): string|false {
+		bool $onlyValidBic = false,
+	): string|false {
 		$isError = false;
-		$account = (string)$account;
-		$bankCode = (string)$bankCode;
-		$accountPrefix = (string)$accountPrefix;
+		$account = (string) $account;
+		$bankCode = (string) $bankCode;
+		$accountPrefix = (string) $accountPrefix;
 
-		// Handle account number with prefix (format: prefix-account)
-		if (str_contains($account, '-')) {
-			$accountPrefix = substr($account, 0, strpos($account, '-'));
-			$account = substr($account, strpos($account, '-') + 1);
+		// Handle account number with a prefix (format: prefix-account)
+		$pos = strpos($account, '-');
+		if ($pos !== false) {
+			$accountPrefix = substr($account, 0, $pos);
+			$account = substr($account, $pos + 1);
 		}
 
 		if (!self::getPrefix($accountPrefix)) {
@@ -63,10 +58,10 @@ final class Iban {
 		}
 
 		$checkDigits = self::calculateMod97(
-			self::$bankCode . self::$accountPrefix . self::$account . '123500'
+			self::$bankCode . self::$accountPrefix . self::$account . '123500',
 		);
 		$checkDigits = 98 - $checkDigits;
-		$checkDigitsFormatted = str_pad((string)$checkDigits, 2, '0', STR_PAD_LEFT);
+		$checkDigitsFormatted = str_pad((string) $checkDigits, 2, '0', STR_PAD_LEFT);
 
 		$iban = 'CZ' . $checkDigitsFormatted . self::$bankCode . self::$accountPrefix . self::$account;
 
@@ -80,16 +75,16 @@ final class Iban {
 	}
 
 	/**
-	 * Gets SWIFT/BIC code for bank
+	 * Gets SWIFT/BIC code for a bank
 	 *
 	 * @param string|int $bankCode 4-digit bank code
-	 * @return string|false BIC code or false on error
+	 * @return string|null BIC code or false on error
 	 */
-	public static function getSwift(string|int $bankCode): string|false {
-		$bankCode = (string)$bankCode;
+	public static function getSwift(string|int $bankCode): string|null {
+		$bankCode = (string) $bankCode;
 
 		if (!self::getBank($bankCode, true)) {
-			return false;
+			return null;
 		}
 
 		return self::$bic;
@@ -99,15 +94,15 @@ final class Iban {
 	 * Generates QR payment string for Czech QR payments
 	 *
 	 * @param array{iban: string, bic?: string, amount: string|float, vs?: string, ks?: string, ss?: string} $data Payment data
-	 * @return string|false QR string or false on error
+	 * @return string|null QR string or null on error
 	 */
-	public static function getQRString(array $data): string|false {
-		if (!isset($data['iban'], $data['amount'])) {
-			return false;
+	public static function getQRString(array $data): string|null {
+		if ($data['amount'] <= 0) {
+			return null;
 		}
 
 		if ($data['iban'] === '' || $data['amount'] === '') {
-			return false;
+			return null;
 		}
 
 		$qrString = 'SPD*1.0*ACC:' . str_replace(' ', '', $data['iban']);
@@ -116,7 +111,7 @@ final class Iban {
 			$qrString .= '+' . $data['bic'];
 		}
 
-		$qrString .= '*AM:' . round((float)$data['amount'], 2) . '*';
+		$qrString .= '*AM:' . round((float) $data['amount'], 2) . '*';
 
 		if (isset($data['vs']) && $data['vs'] !== '') {
 			$qrString .= 'X-VS:' . $data['vs'] . '*';
@@ -131,23 +126,6 @@ final class Iban {
 		}
 
 		return trim($qrString, '*');
-	}
-
-	private static function setError(string $error): void {
-		self::$errors[] = $error;
-	}
-
-	/**
-	 * @return list<string>
-	 */
-	private static function getErrors(): array {
-		return self::$errors;
-	}
-
-	private static function displayErrors(): void {
-		foreach (self::getErrors() as $error) {
-			echo $error . '<br>';
-		}
 	}
 
 	private static function stripSpaces(?string $text): string {
@@ -173,7 +151,7 @@ final class Iban {
 			if ($digit !== '0') {
 				if ($digit >= '1' && $digit <= '9') {
 					$status = 'C';
-					$sum += ((int)$digit) * $weights[$j];
+					$sum += ((int) $digit) * $weights[$j];
 				} else {
 					$status = 'E';
 
@@ -199,19 +177,7 @@ final class Iban {
 
 		$status = self::testNumber(self::$accountPrefix);
 
-		if (str_starts_with($status, 'E')) {
-			self::setError('First part of account number is not numeric');
-
-			return false;
-		}
-
-		if (str_ends_with($status, 'E')) {
-			self::setError('Invalid account number');
-
-			return false;
-		}
-
-		return true;
+		return !str_starts_with($status, 'E') && !str_ends_with($status, 'E');
 	}
 
 	private static function getAccount(string $accountNumber): bool {
@@ -220,25 +186,9 @@ final class Iban {
 
 		$status = self::testNumber(self::$account);
 
-		if (str_starts_with($status, 'N')) {
-			self::setError('Second part of account number is zero');
-
-			return false;
-		}
-
-		if (str_starts_with($status, 'E')) {
-			self::setError('Second part of account number is not numeric');
-
-			return false;
-		}
-
-		if (str_ends_with($status, 'E')) {
-			self::setError('Invalid account number');
-
-			return false;
-		}
-
-		return true;
+		return !str_starts_with($status, 'N')
+			&& !str_starts_with($status, 'E')
+			&& !str_ends_with($status, 'E');
 	}
 
 	private static function getBank(string $bankCode, bool $onlyValidBic = false): bool {
@@ -247,13 +197,7 @@ final class Iban {
 
 		self::$bic = self::getBic(self::$bankCode);
 
-		if (self::$bic === '' && $onlyValidBic) {
-			self::setError('Invalid bank code');
-
-			return false;
-		}
-
-		return true;
+		return !($onlyValidBic && self::$bic === '');
 	}
 
 	/**
@@ -318,7 +262,7 @@ final class Iban {
 			if ($remainder < 0) {
 				$dividend = substr($buffer, $index, 9);
 				$index += 9;
-			} elseif ($remainder >= 0 && $remainder <= 9) {
+			} elseif ($remainder <= 9) {
 				$dividend = $remainder . substr($buffer, $index, 8);
 				$index += 8;
 			} else {
@@ -326,7 +270,7 @@ final class Iban {
 				$index += 7;
 			}
 
-			$remainder = ((int)$dividend) % 97;
+			$remainder = ((int) $dividend) % 97;
 		}
 
 		return $remainder;

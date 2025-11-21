@@ -1,6 +1,7 @@
 {
   "name": "kenod/invoice-generator",
   "description": "Professional PHP library for generating PDF invoices, proforma invoices, and other accounting documents with QR payment codes, IBAN validation, and multi-language support",
+  "version": "3.0.0",
   "type": "library",
   "keywords": [
 	"invoice",
@@ -13,7 +14,7 @@
 	"czech",
 	"invoice-generator"
   ],
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
 	{
 	  "name": "Petr Daněk",
@@ -23,7 +24,8 @@
   ],
   "require": {
 	"php": "^8.3 || ^8.4",
-	"tecnickcom/tcpdf": "^6.2"
+	"tecnickcom/tcpdf": "^6.2",
+	"ext-gd": "*"
   },
   "require-dev": {
 	"slevomat/coding-standard": "^8.15",
@@ -33,7 +35,7 @@
   },
   "autoload": {
 	"psr-4": {
-	  "Kenod\\InvoiceGenerator\\": "src/Kenod/InvoiceGenerator/"
+	  "Kenod\\InvoiceGenerator\\": "src/"
 	}
   },
   "autoload-dev": {

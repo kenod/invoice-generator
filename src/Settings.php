@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Kenod\InvoiceGenerator;
 
@@ -23,115 +21,112 @@ use function imagesy;
  * - QR payment codes
  */
 final class Settings {
-	public ?string $invoiceNumber = null;
+	protected ?string $invoiceNumber = null;
 
-	public string $author = '';
+	protected string $author = '';
 
-	public string $title = '';
+	protected string $title = '';
 
-	public string $currency = 'CZK';
+	protected string $currency = 'CZK';
 
-	public string $filename = '';
+	protected string $filename = '';
 
-	public bool $vatPayer = false;
+	protected bool $vatPayer = false;
 
-	public float $itemSpacing = 0;
+	protected float $itemSpacing = 0;
 
-	/**
-	 * @var bool|array<string, mixed>
-	 */
-	public bool|array $underline = false;
+	/** @var bool|array{0?: int, 1?: int, 2?: int} */
+	protected bool|array $underline = false;
 
-	public float $deposits = 0;
+	protected float $deposits = 0;
 
 	/**
 	 * Rounding precision (1=crowns, 2=fifties)
 	 */
-	public int $roundTo = 1;
+	protected int $roundTo = 1;
 
-	/**
-	 * @var list<array{0: string, 1: float, 2: string}>
-	 */
-	public array $signatureText = [];
+	/** @var list<array{0: string, 1: float, 2: string}> */
+	protected array $signatureText = [];
 
-	/**
-	 * @var list<array{0: string, 1: float, 2: string}>
-	 */
-	public array $footerText = [];
+	/** @var list<array{0: string, 1: float, 2: string}> */
+	protected array $footerText = [];
 
-	/**
-	 * @var list<array{path: string, x: float, y: float|string, repeat: string, width: float|null, height: float|null}>
-	 */
-	public array $images = [];
+	/** @var list<array{path: string, x: float, y: float|string, repeat: string, width: float|null, height: float|null}> */
+	protected array $images = [];
 
 	/**
 	 * VAT rate labels [rate => label]
 	 *
-	 * @var array<string, string>
+	 * @var array<int|string, string>
 	 */
-	public array $vatRates = [
-		'0' => 'Zero rate',
-		'12' => 'Reduced rate',
-		'21' => 'Standard rate',
+	protected array $vatRates = [
+		'0' => 'Nulová sazba',
+		'12' => 'Snížená sazba',
+		'21' => 'Základní sazba',
 	];
 
-	public int $roundingEnabled = 0;
+	protected int $roundingEnabled = 0;
 
 	/**
 	 * Rounding distribution (1=highest rate, 2=lowest rate, 3=highest total, 4=zero rate)
 	 */
-	public int $roundingDistribution = 1;
+	protected int $roundingDistribution = 1;
 
-	public bool $roundingAsItem = true;
+	protected bool $roundingAsItem = true;
 
-	public bool $vatSummary = true;
+	protected bool $vatSummary = true;
 
-	public bool $alreadyPaidInPaymentInfo = false;
+	protected bool $alreadyPaidInPaymentInfo = false;
 
-	/**
-	 * @var array{mj: bool, pocetmj: bool, cenamj: bool}
-	 */
-	public array $displayedColumns = ['mj' => true, 'pocetmj' => true, 'cenamj' => true];
+	/** @var array{mj: bool, pocetmj: bool, cenamj: bool} */
+	protected array $displayedColumns = ['mj' => true, 'pocetmj' => true, 'cenamj' => true];
 
 	/**
 	 * Discount settings [amount, type, display_location, show_zero, vat_rate]
 	 *
 	 * @var array{0: float, 1: int, 2: int, 3: int, 4: float}
 	 */
-	public array $discount = [0, 0, 1, 0, 0];
+	protected array $discount = [0, 0, 1, 0, 0];
 
-	public bool $sendToMail = false;
+	protected bool $sendToMail = false;
 
-	public bool $summaryEmpty = true;
+	protected bool $summaryEmpty = true;
 
-	public string $signatureCertificate = '';
+	protected string $signatureCertificate = '';
 
-	public string $signaturePassword = '';
+	protected string $signaturePassword = '';
 
 	/**
 	 * Rounding type (1=display only, 2=calculate too, 3=round total)
 	 */
-	public int $roundingType = 1;
+	protected int $roundingType = 1;
 
 	/**
 	 * Rounding method (1=mathematical, 2=up, 3=down)
 	 */
-	public int $roundingMethod = 1;
+	protected int $roundingMethod = 1;
 
 	/**
 	 * Document type (1=invoice, 2=proforma, 3=credit note, 4=storno)
 	 */
-	public int $documentType = 1;
+	protected int $documentType = 1;
+
+	/** @var array{Name: string, Location: string, Reason: string, ContactInfo: string} */
+	protected array $signatureInfo = ['Name' => '', 'Location' => '', 'Reason' => '', 'ContactInfo' => ''];
 
 	/**
-	 * @var array{Name: string, Location: string, Reason: string, ContactInfo: string}
+	 * @var array{
+	 *     fillColor: array{0: int, 1: int, 2: int},
+	 *     fontColor: array{0: int, 1: int, 2: int},
+	 *     itemFillColor: array{0: int, 1: int, 2: int}|false,
+	 *     itemFontColor?: array{0: int, 1: int, 2: int},
+	 *     pricesFillColor: array{0: int, 1: int, 2: int},
+	 *     pricesFontColor: array{0: int, 1: int, 2: int},
+	 *     signatureFillColor: array{0: int, 1: int, 2: int},
+	 *     finalRecipientFillColor: array{0: int, 1: int, 2: int}
+	 * }
 	 */
-	public array $signatureInfo = ['Name' => '', 'Location' => '', 'Reason' => '', 'ContactInfo' => ''];
-
-	/**
-	 * @var array{fillColor: array{0: int, 1: int, 2: int}, fontColor: array{0: int, 1: int, 2: int}, itemFillColor: array{0: int, 1: int, 2: int}|false, pricesFillColor: array{0: int, 1: int, 2: int}, pricesFontColor: array{0: int, 1: int, 2: int}, signatureFillColor: array{0: int, 1: int, 2: int}, finalRecipientFillColor: array{0: int, 1: int, 2: int}}
-	 */
-	public array $style = [
+	protected array $style = [
 		'fillColor' => [225, 225, 225],
 		'fontColor' => [0, 0, 0],
 		'itemFillColor' => [240, 240, 240],
@@ -141,54 +136,42 @@ final class Settings {
 		'finalRecipientFillColor' => [225, 225, 225],
 	];
 
-	/**
-	 * @var array{display: bool, different_address: bool}
-	 */
-	public array $finalRecipient = ['display' => false, 'different_address' => false];
+	/** @var array{display: bool, different_address: bool} */
+	protected array $finalRecipient = ['display' => false, 'different_address' => false];
 
-	/**
-	 * @var array{display: bool, x: float, y: float, page: string, size: float, style: int}
-	 */
-	public array $qrPayment = ['display' => false, 'x' => 50, 'y' => 50, 'page' => 'F', 'size' => 20, 'style' => 1];
+	/** @var array{display: bool, x: float, y: float|string, page: string, size: float, style: int} */
+	protected array $qrPayment = ['display' => false, 'x' => 50, 'y' => 50, 'page' => 'F', 'size' => 20, 'style' => 1];
 
 	/**
 	 * Output type (I=inline, D=download, F=file, FI=file+inline, FD=file+download, E=email, S=string)
 	 */
-	public string $outputType = 'I';
+	protected string $outputType = 'I';
 
-	/**
-	 * @var array{code: int, top: float, left: float, width: float, height: float}
-	 */
-	public array $barcode = ['code' => 0, 'top' => 1, 'left' => 10, 'width' => 30, 'height' => 10];
+	/** @var array{code: int, top: float, left: float, width: float, height: float} */
+	protected array $barcode = ['code' => 0, 'top' => 1, 'left' => 10, 'width' => 30, 'height' => 10];
 
-	/**
-	 * @var array{original_document?: string, reason?: string}
-	 */
-	public array $additionalInfo = [];
+	/** @var array{original_document?: string, reason?: string} */
+	protected array $additionalInfo = [];
 
-	public bool $reverseCharge = false;
+	protected bool $reverseCharge = false;
 
-	public string $reverseChargeText = '';
+	protected string $reverseChargeText = '';
 
-	public string $font = 'dejavusans';
+	protected string $font = 'dejavusans';
 
-	public bool $displayItemCount = true;
+	protected bool $displayItemCount = true;
 
-	public bool $amountsWithVat = false;
+	protected bool $amountsWithVat = false;
 
-	/**
-	 * @var array<string, mixed>
-	 */
-	public array $eet = [];
+	/** @var array<string, mixed> */
+	protected array $eet = [];
 
-	public string $notePosition = 'bottom';
+	protected string $notePosition = 'bottom';
 
-	/**
-	 * @var array{enabled: bool, width?: float, color?: string, dash?: int}
-	 */
-	public array $borders = ['enabled' => false];
+	/** @var array{enabled: bool, width?: float, color?: string, dash?: int} */
+	protected array $borders = ['enabled' => false];
 
-	public string $documentName = '';
+	protected string $documentName = '';
 
 	/**
 	 * Gets count of displayed columns
@@ -243,17 +226,15 @@ final class Settings {
 
 	/**
 	 * Resets settings for next invoice generation
+	 *
+	 * Only resets per-invoice settings, not global configuration like QR payment, font, etc.
 	 */
 	public function clear(): self {
 		$this->invoiceNumber = null;
-		$this->deposits = 0;
-		$this->roundTo = 1;
-		$this->signatureText = [];
-		$this->footerText = [];
-		$this->images = [];
-		$this->underline = false;
+		$this->documentType = 1;
 		$this->discount = [0, 0, 1, 0, 0];
-		$this->additionalInfo = [];
+		$this->deposits = 0;
+		$this->eet = [];
 
 		return $this;
 	}
@@ -394,7 +375,14 @@ final class Settings {
 	 * @param float $size QR code size in mm
 	 * @param int $style Style (1=framed+desc below, 2=no frame+desc right, 3=no frame+desc below)
 	 */
-	public function setQRPayment(bool $display, float $x = 50, float $y = 50, string $page = 'F', float $size = 20, int $style = 1): self {
+	public function setQRPayment(
+		bool $display,
+		float $x = 50,
+		float $y = 50,
+		string $page = 'F',
+		float $size = 20,
+		int $style = 1,
+	): self {
 		$this->qrPayment['display'] = $display;
 		$this->qrPayment['x'] = $x;
 		$this->qrPayment['y'] = $y;
@@ -418,11 +406,11 @@ final class Settings {
 			return $this;
 		}
 
-		if (is_string($value)) {
-			$this->style[$style] = $this->getRGBColor($value);
-		} else {
-			$this->style[$style] = $value;
+		if (!isset($this->style[$style])) {
+			return $this;
 		}
+
+		$this->style[$style] = is_string($value) ? $this->getRGBColor($value) : $value;
 
 		return $this;
 	}
@@ -449,7 +437,7 @@ final class Settings {
 		$langFile = dirname(__FILE__) . '/../langs/' . $language . '.php';
 
 		if (is_file($langFile)) {
-			Translation::loadTranslations($langFile);
+			Translator::loadTranslations($langFile);
 		}
 
 		return $this;
@@ -468,11 +456,7 @@ final class Settings {
 			'storno' => 4,
 		];
 
-		if (is_string($type)) {
-			$this->documentType = $typeMap[$type] ?? 1;
-		} else {
-			$this->documentType = $type;
-		}
+		$this->documentType = is_string($type) ? $typeMap[$type] ?? 1 : $type;
 
 		return $this;
 	}
@@ -483,11 +467,7 @@ final class Settings {
 	 * @param string $certificate Path to certificate file or certificate content
 	 */
 	public function setSignatureCertificate(string $certificate): self {
-		if (is_file($certificate)) {
-			$this->signatureCertificate = (string)file_get_contents($certificate);
-		} else {
-			$this->signatureCertificate = $certificate;
-		}
+		$this->signatureCertificate = is_file($certificate) ? (string) file_get_contents($certificate) : $certificate;
 
 		return $this;
 	}
@@ -501,7 +481,12 @@ final class Settings {
 	/**
 	 * Sets signature information metadata
 	 */
-	public function setSignatureInfo(string $name = '', string $location = '', string $reason = '', string $contact = ''): self {
+	public function setSignatureInfo(
+		string $name = '',
+		string $location = '',
+		string $reason = '',
+		string $contact = '',
+	): self {
 		$this->signatureInfo['Name'] = $name;
 		$this->signatureInfo['Location'] = $location;
 		$this->signatureInfo['Reason'] = $reason;
@@ -517,7 +502,7 @@ final class Settings {
 	 * @return string|null Rate label or null if not found
 	 */
 	public function getVatRateLabel(float $rate): ?string {
-		$rateKey = (string)$rate;
+		$rateKey = (string) $rate;
 
 		return $this->vatRates[$rateKey] ?? null;
 	}
@@ -537,7 +522,13 @@ final class Settings {
 	 * @param int $showZero Show when zero (0=only non-zero, 1=always)
 	 * @param float $vatRate VAT rate to apply discount to
 	 */
-	public function setDiscount(float $discount, int $type = 0, int $displayLocation = 1, int $showZero = 0, float $vatRate = 0): self {
+	public function setDiscount(
+		float $discount,
+		int $type = 0,
+		int $displayLocation = 1,
+		int $showZero = 0,
+		float $vatRate = 0,
+	): self {
 		$this->discount = [$discount, $type, $displayLocation, $showZero, $vatRate];
 
 		return $this;
@@ -552,16 +543,22 @@ final class Settings {
 	 * @param int $distribution Distribution (1=highest rate, 2=lowest rate, 3=highest total, 4=zero rate)
 	 * @param bool $asItem Count rounding as invoice item
 	 */
-	public function setRounding(int $value, int $type = 1, int $method = 1, int $distribution = 1, bool $asItem = true): self {
+	public function setRounding(
+		int $value,
+		int $type = 1,
+		int $method = 1,
+		int $distribution = 1,
+		bool $asItem = true,
+	): self {
 		$this->roundTo = $value;
 		$this->roundingType = $type;
 		$this->roundingMethod = $method;
 		$this->roundingDistribution = $distribution;
 		$this->roundingAsItem = $asItem;
 
-		// Auto-enable rounding if value > 0
-		if ($value > 0) {
-			$this->roundingEnabled = 1;
+		// Disable rounding if value is 0
+		if ($value === 0) {
+			$this->roundingEnabled = 2;
 		}
 
 		return $this;
@@ -593,6 +590,12 @@ final class Settings {
 		return $this;
 	}
 
+	public function setDisplayUnitColumn(bool $value): self {
+		$this->displayedColumns['mj'] = $value;
+
+		return $this;
+	}
+
 	public function setVatSummary(bool $value): self {
 		$this->vatSummary = $value;
 
@@ -615,7 +618,14 @@ final class Settings {
 	 * @param float|null $width Image width in mm (auto if null)
 	 * @param float|null $height Image height in mm (auto if null)
 	 */
-	public function setImage(string $path, float $horizontal, float|string $vertical, string $repeat = 'F', ?float $width = null, ?float $height = null): self {
+	public function setImage(
+		string $path,
+		float $horizontal,
+		float|string $vertical,
+		string $repeat = 'F',
+		?float $width = null,
+		?float $height = null,
+	): self {
 		// Auto-calculate dimensions if not provided
 		if ($width === null || $height === null) {
 			$extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
@@ -751,6 +761,227 @@ final class Settings {
 		return $this;
 	}
 
+	public function getInvoiceNumber(): ?string {
+		return $this->invoiceNumber;
+	}
+
+	public function getAuthor(): string {
+		return $this->author;
+	}
+
+	public function getTitle(): string {
+		return $this->title;
+	}
+
+	public function getCurrency(): string {
+		return $this->currency;
+	}
+
+	public function getFilename(): string {
+		return $this->filename;
+	}
+
+	public function getVatPayer(): bool {
+		return $this->vatPayer;
+	}
+
+	public function getItemSpacing(): float {
+		return $this->itemSpacing;
+	}
+
+	/**
+	 * @return bool|array{0?: int, 1?: int, 2?: int}
+	 */
+	public function getUnderline(): bool|array {
+		return $this->underline;
+	}
+
+	public function getDeposits(): float {
+		return $this->deposits;
+	}
+
+	public function getRoundTo(): int {
+		return $this->roundTo;
+	}
+
+	/**
+	 * @return list<array{0: string, 1: float, 2: string}>
+	 */
+	public function getSignatureText(): array {
+		return $this->signatureText;
+	}
+
+	/**
+	 * @return list<array{0: string, 1: float, 2: string}>
+	 */
+	public function getFooterText(): array {
+		return $this->footerText;
+	}
+
+	/**
+	 * @return list<array{path: string, x: float, y: float|string, repeat: string, width: float|null, height: float|null}>
+	 */
+	public function getImages(): array {
+		return $this->images;
+	}
+
+	/**
+	 * @return array<int|string, string>
+	 */
+	public function getVatRates(): array {
+		return $this->vatRates;
+	}
+
+	public function getRoundingEnabled(): int {
+		return $this->roundingEnabled;
+	}
+
+	public function getRoundingDistribution(): int {
+		return $this->roundingDistribution;
+	}
+
+	public function getRoundingAsItem(): bool {
+		return $this->roundingAsItem;
+	}
+
+	public function getVatSummary(): bool {
+		return $this->vatSummary;
+	}
+
+	public function getAlreadyPaidInPaymentInfo(): bool {
+		return $this->alreadyPaidInPaymentInfo;
+	}
+
+	/**
+	 * @return array{mj: bool, pocetmj: bool, cenamj: bool}
+	 */
+	public function getDisplayedColumns(): array {
+		return $this->displayedColumns;
+	}
+
+	/**
+	 * @return array{0: float, 1: int, 2: int, 3: int, 4: float}
+	 */
+	public function getDiscount(): array {
+		return $this->discount;
+	}
+
+	public function getSendToMail(): bool {
+		return $this->sendToMail;
+	}
+
+	public function getSummaryEmpty(): bool {
+		return $this->summaryEmpty;
+	}
+
+	public function getSignatureCertificate(): string {
+		return $this->signatureCertificate;
+	}
+
+	public function getSignaturePassword(): string {
+		return $this->signaturePassword;
+	}
+
+	public function getRoundingType(): int {
+		return $this->roundingType;
+	}
+
+	public function getRoundingMethod(): int {
+		return $this->roundingMethod;
+	}
+
+	public function getDocumentType(): int {
+		return $this->documentType;
+	}
+
+	/**
+	 * @return array{Name: string, Location: string, Reason: string, ContactInfo: string}
+	 */
+	public function getSignatureInfo(): array {
+		return $this->signatureInfo;
+	}
+
+	/**
+	 * @return array{fillColor: array{0: int, 1: int, 2: int}, fontColor: array{0: int, 1: int, 2: int}, itemFillColor: array{0: int, 1: int, 2: int}|false, itemFontColor?: array{0: int, 1: int, 2: int}, pricesFillColor: array{0: int, 1: int, 2: int}, pricesFontColor: array{0: int, 1: int, 2: int}, signatureFillColor: array{0: int, 1: int, 2: int}, finalRecipientFillColor: array{0: int, 1: int, 2: int}}
+	 */
+	public function getStyle(): array {
+		return $this->style;
+	}
+
+	/**
+	 * @return array{display: bool, different_address: bool}
+	 */
+	public function getFinalRecipient(): array {
+		return $this->finalRecipient;
+	}
+
+	/**
+	 * @return array{display: bool, x: float, y: float|string, page: string, size: float, style: int}
+	 */
+	public function getQrPayment(): array {
+		return $this->qrPayment;
+	}
+
+	public function getOutputType(): string {
+		return $this->outputType;
+	}
+
+	/**
+	 * @return array{code: int, top: float, left: float, width: float, height: float}
+	 */
+	public function getBarcode(): array {
+		return $this->barcode;
+	}
+
+	/**
+	 * @return array{original_document?: string, reason?: string}
+	 */
+	public function getAdditionalInfo(): array {
+		return $this->additionalInfo;
+	}
+
+	public function getReverseCharge(): bool {
+		return $this->reverseCharge;
+	}
+
+	public function getReverseChargeText(): string {
+		return $this->reverseChargeText;
+	}
+
+	public function getFont(): string {
+		return $this->font;
+	}
+
+	public function getDisplayItemCount(): bool {
+		return $this->displayItemCount;
+	}
+
+	public function getAmountsWithVat(): bool {
+		return $this->amountsWithVat;
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function getEet(): array {
+		return $this->eet;
+	}
+
+	public function getNotePosition(): string {
+		return $this->notePosition;
+	}
+
+	/**
+	 * @return array{enabled: bool, width?: float, color?: string, dash?: int}
+	 */
+	public function getBordersConfig(): array {
+		return $this->borders;
+	}
+
+	public function getDocumentName(): string {
+		return $this->documentName;
+	}
+
 	/**
 	 * Converts HTML hex color to RGB array
 	 *
@@ -761,9 +992,9 @@ final class Settings {
 		$htmlColor = ltrim($htmlColor, '#');
 
 		return [
-			(int)hexdec(substr($htmlColor, 0, 2)),
-			(int)hexdec(substr($htmlColor, 2, 2)),
-			(int)hexdec(substr($htmlColor, 4, 2)),
+			(int) hexdec(substr($htmlColor, 0, 2)),
+			(int) hexdec(substr($htmlColor, 2, 2)),
+			(int) hexdec(substr($htmlColor, 4, 2)),
 		];
 	}
 }

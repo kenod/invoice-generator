@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Kenod\InvoiceGenerator;
 
@@ -13,54 +11,108 @@ final class Information {
 	 *
 	 * @var array{0: string, 1: string|null, 2: bool}
 	 */
-	public array $order = ['Based on order no.:', null, false];
+	protected array $order = ['Based on order no.:', null, false];
 
 	/**
 	 * Order date [label, value, visibility]
 	 *
 	 * @var array{0: string, 1: string|null, 2: bool}
 	 */
-	public array $fromDate = ['From date:', null, false];
+	protected array $fromDate = ['From date:', null, false];
 
 	/**
 	 * Issue date [label, value, visibility]
 	 *
 	 * @var array{0: string, 1: string|null, 2: bool}
 	 */
-	public array $issueDate = ['Issue date:', null, false];
+	protected array $issueDate = ['Issue date:', null, false];
 
 	/**
 	 * Due date [label, value, visibility]
 	 *
 	 * @var array{0: string, 1: string|null, 2: bool}
 	 */
-	public array $dueDate = ['Due date:', null, false];
+	protected array $dueDate = ['Due date:', null, false];
 
 	/**
 	 * Taxable supply date [label, value, visibility]
 	 *
 	 * @var array{0: string, 1: string|null, 2: bool}
 	 */
-	public array $taxableSupplyDate = ['Taxable supply date:', null, true];
+	protected array $taxableSupplyDate = ['Taxable supply date:', null, true];
 
 	/**
 	 * Dynamic custom properties
 	 *
 	 * @var array<string, array{0: string, 1: string}>
 	 */
-	public array $dynamicProperties = [];
+	protected array $dynamicProperties = [];
 
 	private int $parameterCount = 0;
+
+	/**
+	 * Gets order reference
+	 *
+	 * @return array{0: string, 1: string|null, 2: bool}
+	 */
+	public function getOrder(): array {
+		return $this->order;
+	}
+
+	/**
+	 * Gets from date
+	 *
+	 * @return array{0: string, 1: string|null, 2: bool}
+	 */
+	public function getFromDate(): array {
+		return $this->fromDate;
+	}
+
+	/**
+	 * Gets issue date
+	 *
+	 * @return array{0: string, 1: string|null, 2: bool}
+	 */
+	public function getIssueDate(): array {
+		return $this->issueDate;
+	}
+
+	/**
+	 * Gets due date
+	 *
+	 * @return array{0: string, 1: string|null, 2: bool}
+	 */
+	public function getDueDate(): array {
+		return $this->dueDate;
+	}
+
+	/**
+	 * Gets taxable supply date
+	 *
+	 * @return array{0: string, 1: string|null, 2: bool}
+	 */
+	public function getTaxableSupplyDate(): array {
+		return $this->taxableSupplyDate;
+	}
+
+	/**
+	 * Gets dynamic properties
+	 *
+	 * @return array<string, array{0: string, 1: string}>
+	 */
+	public function getDynamicProperties(): array {
+		return $this->dynamicProperties;
+	}
 
 	/**
 	 * Translates basic information labels to current language
 	 */
 	public function translate(): self {
-		$this->order[0] = Translation::t('na_zaklade_objednavky_c');
-		$this->fromDate[0] = Translation::t('ze_dne');
-		$this->issueDate[0] = Translation::t('datum_vystaveni');
-		$this->dueDate[0] = Translation::t('datum_splatnosti');
-		$this->taxableSupplyDate[0] = Translation::t('datum_zdanitelneho_plneni');
+		$this->order[0] = Translator::t('based_on_order_no');
+		$this->fromDate[0] = Translator::t('from_date');
+		$this->issueDate[0] = Translator::t('issue_date');
+		$this->dueDate[0] = Translator::t('due_date');
+		$this->taxableSupplyDate[0] = Translator::t('tax_point_date');
 
 		return $this;
 	}
@@ -73,7 +125,7 @@ final class Information {
 	public function getProperties(): array {
 		$properties = [];
 
-		foreach ($this as $key => $value) {
+		foreach (get_object_vars($this) as $key => $value) {
 			$properties[$key] = $value;
 		}
 
@@ -113,6 +165,7 @@ final class Information {
 	public function setOrder(string $orderNumber): self {
 		if ($orderNumber !== '') {
 			$this->order[1] = $orderNumber;
+			$this->order[2] = false;
 		}
 
 		return $this;
@@ -126,6 +179,7 @@ final class Information {
 	public function setFromDate(string $date): self {
 		if ($date !== '') {
 			$this->fromDate[1] = $date;
+			$this->fromDate[2] = false;
 		}
 
 		return $this;
@@ -139,6 +193,7 @@ final class Information {
 	public function setIssueDate(string $date): self {
 		if ($date !== '') {
 			$this->issueDate[1] = $date;
+			$this->issueDate[2] = false;
 		}
 
 		return $this;
@@ -152,6 +207,7 @@ final class Information {
 	public function setDueDate(string $date): self {
 		if ($date !== '') {
 			$this->dueDate[1] = $date;
+			$this->dueDate[2] = false;
 		}
 
 		return $this;
@@ -165,6 +221,7 @@ final class Information {
 	public function setTaxableSupplyDate(string $date): self {
 		if ($date !== '') {
 			$this->taxableSupplyDate[1] = $date;
+			$this->taxableSupplyDate[2] = true;
 		}
 
 		return $this;

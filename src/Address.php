@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Kenod\InvoiceGenerator;
 
@@ -9,75 +7,127 @@ namespace Kenod\InvoiceGenerator;
  */
 final class Address {
 	/**
-	* Company name
-	*/
-	public string $company = '';
+	 * Company name
+	 */
+	protected string $company = '';
 
 	/**
 	 * Contact person name
 	 */
-	public string $name = '';
+	protected string $name = '';
 
 	/**
 	 * Street address
 	 */
-	public string $street = '';
+	protected string $street = '';
 
 	/**
 	 * Postal code
 	 */
-	public string $postalCode = '';
+	protected string $postalCode = '';
 
 	/**
 	 * City
 	 */
-	public string $city = '';
+	protected string $city = '';
 
 	/**
 	 * Country
 	 */
-	public string $country = 'Czech Republic';
+	protected string $country = 'Czech Republic';
 
 	/**
 	 * Separator between company and name (if both present)
 	 */
-	public string $separator = '--';
+	protected string $separator = '--';
 
 	/**
 	 * Company ID number (IČ in Czech)
 	 */
-	public string $companyId = '';
+	protected string $companyId = '';
 
 	/**
 	 * Tax ID number (DIČ in Czech)
 	 */
-	public string $taxId = '';
+	protected string $taxId = '';
 
 	/**
 	 * Separator between IDs
 	 */
-	public string $separator2 = '--';
+	protected string $separator2 = '--';
 
 	/**
 	 * Phone number
 	 */
-	public string $phone = '';
+	protected string $phone = '';
 
 	/**
 	 * Email address
 	 */
-	public string $email = '';
+	protected string $email = '';
 
 	/**
 	 * Website URL
 	 */
-	public string $web = '';
+	protected string $web = '';
+
+	public function getCompany(): string {
+		return $this->company;
+	}
+
+	public function getName(): string {
+		return $this->name;
+	}
+
+	public function getStreet(): string {
+		return $this->street;
+	}
+
+	public function getPostalCode(): string {
+		return $this->postalCode;
+	}
+
+	public function getCity(): string {
+		return $this->city;
+	}
+
+	public function getCountry(): string {
+		return $this->country;
+	}
+
+	public function getSeparator(): string {
+		return $this->separator;
+	}
+
+	public function getCompanyId(): string {
+		return $this->companyId;
+	}
+
+	public function getTaxId(): string {
+		return $this->taxId;
+	}
+
+	public function getSeparator2(): string {
+		return $this->separator2;
+	}
+
+	public function getPhone(): string {
+		return $this->phone;
+	}
+
+	public function getEmail(): string {
+		return $this->email;
+	}
+
+	public function getWeb(): string {
+		return $this->web;
+	}
 
 	/**
 	 * Translates the country name to the loaded language
 	 */
 	public function translate(): self {
-		$this->country = Translation::t($this->country);
+		$this->country = Translator::t($this->country);
 
 		return $this;
 	}
