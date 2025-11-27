@@ -193,6 +193,9 @@ $invoice = new InvoiceGenerator();
 | `SetKonecnyPrijemceVypisovat()` | `setFinalRecipientDisplay()` |
 | `SetKonecnyPrijemceOdlisnaAdresa()` | `setFinalRecipientDifferentAddress()` |
 | `SetZobrazeneSloupce()` | `setDisplayedColumns()` |
+| `SetZobrazovatMJ()` | `setDisplayedColumns()` |
+| `SetOutputType()` | `setOutputType()` |
+| `SetSummaryEmpty()` | `setSummaryEmpty()` |
 | `SetVypisovatPocetPolozek()` | `setDisplayItemCount()` |
 | `setPozicePoznamky()` | `setNotePosition()` |
 | `setBorders()` | `setBorders()` *(same name)* |

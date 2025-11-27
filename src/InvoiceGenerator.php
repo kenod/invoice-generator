@@ -104,7 +104,7 @@ final class InvoiceGenerator extends TCPDF {
 		$this->SetXY(15, -10);
 		$this->Cell(0, 8, Translator::t('generated_footer'));
 		$this->SetXY(0, -10);
-		$this->Cell(210, 8, 'faktury.chci-www.cz', 0, 0, 'C');
+		$this->Cell(210, 8, Translator::t('footer_middle_text'), 0, 0, 'C');
 		$this->SetXY(180, -10);
 		$this->Cell(20, 8, Translator::t('page') . ' ' . $this->getPageNumGroupAlias() . '/' . $this->getPageGroupAlias(), 0, 0, 'L');
 		$this->SetTextColor(0, 0, 0);
