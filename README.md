@@ -519,7 +519,7 @@ Static utility class for translations.
 ```php
 use Kenod\InvoiceGenerator\Translator;
 
-// Load translation file
+// Load translation file, use it after calling ->setLanguage(), otherwise it won't have effect.
 Translator::loadTranslations(string $filePath): void
 
 // Translate key
