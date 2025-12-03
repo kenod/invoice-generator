@@ -6,6 +6,7 @@ use Kenod\InvoiceGenerator\Translator;
 use PHPUnit\Framework\TestCase;
 
 final class TranslatorTest extends TestCase {
+
 	protected function setUp(): void {
 		// Reset translations before each test
 		$reflection = new \ReflectionClass(Translator::class);
@@ -84,5 +85,49 @@ final class TranslatorTest extends TestCase {
 			$translation = Translator::t($key);
 			self::assertNotSame($key, $translation, "Key '$key' should have a translation");
 		}
+	}
+
+	public function testModifyTranslationsOverwritesExistingKeys(): void {
+		$langFile = dirname(__DIR__) . '/langs/en.php';
+		Translator::loadTranslations($langFile);
+
+		Translator::modifyTranslations([
+			'supplier' => 'Custom Supplier',
+		]);
+
+		self::assertSame('Custom Supplier', Translator::t('supplier'));
+	}
+
+	public function testModifyTranslationsAddsNewKeys(): void {
+		$langFile = dirname(__DIR__) . '/langs/en.php';
+		Translator::loadTranslations($langFile);
+
+		Translator::modifyTranslations([
+			'custom_key' => 'Custom Value',
+		]);
+
+		self::assertSame('Custom Value', Translator::t('custom_key'));
+	}
+
+	public function testModifyTranslationsPreservesUnchangedKeys(): void {
+		$langFile = dirname(__DIR__) . '/langs/en.php';
+		Translator::loadTranslations($langFile);
+
+		$originalCustomer = Translator::t('customer');
+
+		Translator::modifyTranslations([
+			'supplier' => 'New Supplier',
+		]);
+
+		self::assertSame($originalCustomer, Translator::t('customer'));
+	}
+
+	public function testModifyTranslationsWithoutLoadedLanguage(): void {
+		Translator::modifyTranslations([
+			'new_key' => 'New Value',
+		]);
+
+		self::assertTrue(Translator::hasLanguage());
+		self::assertSame('New Value', Translator::t('new_key'));
 	}
 }

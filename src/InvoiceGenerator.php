@@ -101,10 +101,14 @@ final class InvoiceGenerator extends TCPDF {
 		$this->SetTextColor(180, 180, 180);
 		$this->SetLineWidth(0.1);
 		$this->Line(10, 287, 200, 287);
-		$this->SetXY(15, -10);
-		$this->Cell(0, 8, Translator::t('generated_footer'));
-		$this->SetXY(0, -10);
-		$this->Cell(210, 8, Translator::t('footer_middle_text'), 0, 0, 'C');
+
+		if (!$this->settings->getHideFooterTexts()) {
+			$this->SetXY(15, -10);
+			$this->Cell(0, 8, Translator::t('generated_footer'));
+			$this->SetXY(0, -10);
+			$this->Cell(210, 8, Translator::t('footer_middle_text'), 0, 0, 'C');
+		}
+
 		$this->SetXY(180, -10);
 		$this->Cell(20, 8, Translator::t('page') . ' ' . $this->getPageNumGroupAlias() . '/' . $this->getPageGroupAlias(), 0, 0, 'L');
 		$this->SetTextColor(0, 0, 0);
@@ -1077,7 +1081,9 @@ final class InvoiceGenerator extends TCPDF {
 		$this->SetTextColor(0, 0, 0);
 
 		// Calculate final Y position for totals
-		$totalAreaAdjustment = $this->totalPrice - $this->settings->getDeposits() > 0.5 ? 213 : 202;
+		$totalAreaAdjustment = $this->totalPrice - $this->settings->getDeposits() > 0.5
+			? 213
+			: 202;
 
 		if ($this->settings->getVatPayer() && $this->settings->getVatSummary()) {
 			$totalAreaAdjustment -= 27;
@@ -1730,10 +1736,9 @@ final class InvoiceGenerator extends TCPDF {
 					0,
 				);
 				$this->SetXY(140 - $xOffset - 1, $yLastItem);
-				$discountAmount = round(
-					$this->settings->getRoundTo() * $discount[0],
-					$this->settings->getRoundingEnabled(),
-				) / ($this->settings->getRoundTo() > 0 ? $this->settings->getRoundTo() : 1);
+				$discountAmount = $this->settings->getRoundTo() > 0
+					? round($this->settings->getRoundTo() * $discount[0], $this->settings->getRoundingEnabled()) / $this->settings->getRoundTo()
+					: $discount[0];
 				$this->Cell(
 					60,
 					5,
@@ -1807,10 +1812,9 @@ final class InvoiceGenerator extends TCPDF {
 		if ($this->settings->getDeposits() > 0.5 && abs($finalAmount) < 0.5) {
 			$this->Cell(60, 5, number_format(0, 2, ',', ' ') . ' ' . $this->settings->getCurrency(), 0, 0, 'R');
 		} else {
-			$roundedAmount = round(
-				$this->settings->getRoundTo() * $finalAmount,
-				$this->settings->getRoundingEnabled(),
-			) / ($this->settings->getRoundTo() > 0 ? $this->settings->getRoundTo() : 1);
+			$roundedAmount = $this->settings->getRoundTo() > 0
+				? round($this->settings->getRoundTo() * $finalAmount, $this->settings->getRoundingEnabled()) / $this->settings->getRoundTo()
+				: $finalAmount;
 			$this->Cell(60, 5, number_format($roundedAmount, 2, ',', ' ') . ' ' . $this->settings->getCurrency(), 0, 0, 'R');
 		}
 

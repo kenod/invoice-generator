@@ -49,3 +49,4 @@ nul
 # Claude
 /.claude/
 /WFPfaktury.php
+/examples/private.php

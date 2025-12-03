@@ -283,7 +283,7 @@ final class ComprehensiveTest extends TestCase
 		// CUSTOM CALLBACK
 		// ============================================
 		$callbackExecuted = false;
-		$invoice->setCustomCallback(function ($pdf) use (&$callbackExecuted) {
+		$invoice->setCustomCallback(static function ($pdf) use (&$callbackExecuted): void {
 			$callbackExecuted = true;
 			$pdf->SetFont('FreeSans', 'B', 8);
 			$pdf->Text(10, 280, 'PHPUnit Test Callback');
@@ -488,7 +488,7 @@ final class ComprehensiveTest extends TestCase
 
 		// Add items
 		$invoice->addItem('Item 1', 10, 100, 'pcs', 21); // 1000 base, 210 VAT, 1210 total
-		$invoice->addItem('Item 2', 5, 200, 'pcs', 21);  // 1000 base, 210 VAT, 1210 total
+		$invoice->addItem('Item 2', 5, 200, 'pcs', 21); // 1000 base, 210 VAT, 1210 total
 
 		// Get final prices
 		$prices = $invoice->getFinalPrices();

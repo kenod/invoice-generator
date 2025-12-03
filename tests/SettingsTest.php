@@ -42,4 +42,27 @@ final class SettingsTest extends TestCase {
 		self::assertSame($this->settings, $result);
 		self::assertTrue($this->settings->getVatPayer());
 	}
+
+	public function testHideFooterTextsDefaultsFalse(): void {
+		self::assertFalse($this->settings->getHideFooterTexts());
+	}
+
+	public function testSetHideFooterTextsReturnsThis(): void {
+		$result = $this->settings->setHideFooterTexts(true);
+
+		self::assertSame($this->settings, $result);
+	}
+
+	public function testSetHideFooterTextsTrue(): void {
+		$this->settings->setHideFooterTexts(true);
+
+		self::assertTrue($this->settings->getHideFooterTexts());
+	}
+
+	public function testSetHideFooterTextsFalse(): void {
+		$this->settings->setHideFooterTexts(true);
+		$this->settings->setHideFooterTexts(false);
+
+		self::assertFalse($this->settings->getHideFooterTexts());
+	}
 }

@@ -371,6 +371,10 @@ Accessed via `$invoice->getSettings()`. All methods return `$this` for chaining.
 
 // Show "Already paid" in payment info
 ->setAlreadyPaidInPaymentInfo(bool $value): self
+
+// Hide footer texts (generated_footer and footer_middle_text)
+->setHideFooterTexts(bool $value): self
+// Default: false
 ```
 
 #### Utility Methods
@@ -523,6 +527,9 @@ Translator::t(string $key): string
 
 // Check if language is loaded
 Translator::hasLanguage(): bool
+
+// Modify translations (overwrites existing keys, adds new ones)
+Translator::modifyTranslations(array $translations): void
 ```
 
 ## Advanced Usage Examples

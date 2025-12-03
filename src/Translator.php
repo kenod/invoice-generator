@@ -43,4 +43,19 @@ final class Translator {
 	public static function hasLanguage(): bool {
 		return self::$translations !== null;
 	}
+
+	/**
+	 * Modifies loaded translations with custom values
+	 *
+	 * Existing keys will be overwritten, new keys will be added.
+	 *
+	 * @param array<string, string> $translations Translations to modify
+	 */
+	public static function modifyTranslations(array $translations): void {
+		if (self::$translations === null) {
+			self::$translations = [];
+		}
+
+		self::$translations = array_merge(self::$translations, $translations);
+	}
 }

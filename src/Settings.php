@@ -173,6 +173,8 @@ final class Settings {
 
 	protected string $documentName = '';
 
+	protected bool $hideFooterTexts = false;
+
 	/**
 	 * Gets count of displayed columns
 	 */
@@ -214,6 +216,12 @@ final class Settings {
 
 	public function setDocumentName(string $name): self {
 		$this->documentName = $name;
+
+		return $this;
+	}
+
+	public function setHideFooterTexts(bool $value): self {
+		$this->hideFooterTexts = $value;
 
 		return $this;
 	}
@@ -980,6 +988,10 @@ final class Settings {
 
 	public function getDocumentName(): string {
 		return $this->documentName;
+	}
+
+	public function getHideFooterTexts(): bool {
+		return $this->hideFooterTexts;
 	}
 
 	/**
