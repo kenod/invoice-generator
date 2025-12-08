@@ -74,6 +74,7 @@ return [
 	// Tax Calculations
 	'vat' => 'ÁFA',
 	'vat_rate' => 'ÁFA %',
+	'vat_rate_label' => '%s%% kulcs',
 	'excl_vat' => 'nettó',
 	'incl_vat' => 'bruttó',
 	'vat_amount' => 'ÁFA összeg',

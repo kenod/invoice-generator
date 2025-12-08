@@ -74,6 +74,7 @@ return [
 	// Tax Calculations
 	'vat' => 'VAT',
 	'vat_rate' => 'VAT %',
+	'vat_rate_label' => 'Stawka %s%%',
 	'excl_vat' => 'netto',
 	'incl_vat' => 'brutto',
 	'vat_amount' => 'Kwota VAT',

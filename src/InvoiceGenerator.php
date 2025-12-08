@@ -920,6 +920,11 @@ final class InvoiceGenerator extends TCPDF {
 		if ($this->settings->getVatPayer()) {
 			$this->SetFont($this->settings->getFont(), '', 8);
 
+			// Ensure all VAT rates used in items exist in vatRates
+			foreach ($this->items as $item) {
+				$this->settings->ensureVatRate($item->getVat());
+			}
+
 			foreach ($this->settings->getVatRates() as $rate => $label) {
 				$vatBaseTotal[$rate] = 0;
 				$vatTotal[$rate] = 0;

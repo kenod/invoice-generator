@@ -74,6 +74,7 @@ return [
 	// Tax Calculations
 	'vat' => 'VAT',
 	'vat_rate' => 'VAT %',
+	'vat_rate_label' => 'Rate %s%%',
 	'excl_vat' => 'excl. VAT',
 	'incl_vat' => 'incl. VAT',
 	'vat_amount' => 'VAT amount',

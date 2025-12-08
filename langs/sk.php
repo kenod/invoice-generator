@@ -74,6 +74,7 @@ return [
 	// Tax Calculations
 	'vat' => 'DPH',
 	'vat_rate' => 'DPH %',
+	'vat_rate_label' => 'Sadzba %s%%',
 	'excl_vat' => 'bez DPH',
 	'incl_vat' => 's DPH',
 	'vat_amount' => 'Výška DPH',

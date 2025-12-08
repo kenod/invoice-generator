@@ -584,6 +584,22 @@ final class Settings {
 	}
 
 	/**
+	 * Ensures a VAT rate exists in the rates array
+	 *
+	 * If the rate doesn't exist, it will be added with a translated label
+	 *
+	 * @param float $rate VAT rate to ensure exists
+	 */
+	public function ensureVatRate(float $rate): void {
+		$rateKey = (string) $rate;
+
+		if (!isset($this->vatRates[$rateKey])) {
+			$rateFormatted = str_replace('.', ',', $rateKey);
+			$this->vatRates[$rateKey] = sprintf(Translator::t('vat_rate_label'), $rateFormatted);
+		}
+	}
+
+	/**
 	 * Sets which columns to display
 	 *
 	 * @param bool $unit Display unit column

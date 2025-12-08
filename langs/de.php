@@ -74,6 +74,7 @@ return [
 	// Tax Calculations
 	'vat' => 'MwSt.',
 	'vat_rate' => 'MwSt. %',
+	'vat_rate_label' => 'Satz %s%%',
 	'excl_vat' => 'ohne MwSt.',
 	'incl_vat' => 'inkl. MwSt.',
 	'vat_amount' => 'MwSt.-Betrag',
