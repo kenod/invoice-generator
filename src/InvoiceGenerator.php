@@ -2002,13 +2002,29 @@ final class InvoiceGenerator extends TCPDF {
 	 * Renders QR payment code
 	 */
 	private function renderQRPayment(float $x, float $y): void {
-		$accountNumber = $this->paymentDetails->getAccountNumber();
+		$accountNumber = $this->paymentDetails->getAccountNumberValue();
+		$bankCode = $this->paymentDetails->getBankCodeValue();
 		$variableSymbol = $this->paymentDetails->getVariableSymbol();
 		$constantSymbol = $this->paymentDetails->getConstantSymbol();
 		$specificSymbol = $this->paymentDetails->getSpecificSymbol();
 
+		if (str_contains($accountNumber ?? '', '/')) {
+			$exploded = explode('/', $accountNumber);
+			$accountNumber = trim($exploded[0]);
+			$bankCode = trim($exploded[1]);
+		}
+
+		if ($accountNumber === null || $bankCode === null) {
+			return;
+		}
+
+		$iban = Iban::getIban($accountNumber, $bankCode);
+		if ($iban === false) {
+			return;
+		}
+
 		$qrData = Iban::getQRString([
-			'iban' => str_replace(' ', '', (string) $accountNumber[1]),
+			'iban' => $iban,
 			'bic' => '',
 			'amount' => (string) $this->calculateTotal(),
 			'vs' => (string) ($variableSymbol[1] ?? ''),

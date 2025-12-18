@@ -76,12 +76,34 @@ final class PaymentDetails {
 	}
 
 	/**
+	 * Gets account number value
+	 */
+	public function getAccountNumberValue(): string|null {
+		if (!isset($this->accountNumber[1])) {
+			return null;
+		}
+
+		return str_replace(' ', '', $this->accountNumber[1]);
+	}
+
+	/**
 	 * Gets bank code
 	 *
 	 * @return array{0: string, 1: string|null, 2: bool}
 	 */
 	public function getBankCode(): array {
 		return $this->bankCode;
+	}
+
+	/**
+	 * Gets bank code value
+	 */
+	public function getBankCodeValue(): string|null {
+		if (!isset($this->bankCode[1])) {
+			return null;
+		}
+
+		return $this->bankCode[1];
 	}
 
 	/**
