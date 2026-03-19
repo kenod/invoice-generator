@@ -54,6 +54,8 @@ final class InvoiceGenerator extends TCPDF {
 
 	private bool $alreadyPaid = false;
 
+	private float $headerMarginTop = 0;
+
 	public function __construct() {
 		parent::__construct();
 
@@ -173,8 +175,10 @@ final class InvoiceGenerator extends TCPDF {
 			$this->endRecipient = $this->customer;
 		}
 
+		$this->headerMarginTop = $this->settings->getMarginTop();
 		$this->AddPage();
 		$this->invoicePageNo = $this->PageNo();
+		$this->headerMarginTop = $this->settings->getMarginTopFirstPageOnly() ? 0 : $this->settings->getMarginTop();
 
 		// Electronic signature
 		if ($this->settings->getSignatureCertificate() !== '') {
@@ -192,6 +196,8 @@ final class InvoiceGenerator extends TCPDF {
 		$this->SetAuthor($this->settings->getAuthor());
 		$this->SetTitle($this->settings->getTitle());
 		$this->SetAutoPageBreak(false, 0.5);
+
+		$mt = $this->settings->getMarginTop();
 
 		// Render first page images
 		foreach ($this->settings->getImages() as $image) {
@@ -218,7 +224,7 @@ final class InvoiceGenerator extends TCPDF {
 			$style['fontColor'][1],
 			$style['fontColor'][2],
 		);
-		$this->Rect(10, 20, 190, 10, 'F', $this->settings->getBorders());
+		$this->Rect(10, 20 + $mt, 190, 10, 'F', $this->settings->getBorders());
 
 		// Render barcode if configured
 		$barcode = $this->settings->getBarcode();
@@ -254,10 +260,10 @@ final class InvoiceGenerator extends TCPDF {
 
 		// Render supplier address
 		$this->SetFont($this->settings->getFont(), 'B', 10);
-		$this->SetXY(15, 20);
+		$this->SetXY(15, 20 + $mt);
 		$this->Cell(0, 10, Translator::t('supplier'));
 		$this->SetTextColor(0, 0, 0);
-		$this->renderAddress($this->supplier, 15, 33, 9, true);
+		$this->renderAddress($this->supplier, 15, 33 + $mt, 9, true);
 
 		// Render customer address
 		$this->SetTextColor(
@@ -266,10 +272,10 @@ final class InvoiceGenerator extends TCPDF {
 			$style['fontColor'][2],
 		);
 		$this->SetFont($this->settings->getFont(), 'B', 10);
-		$this->SetXY(113, 20);
+		$this->SetXY(113, 20 + $mt);
 		$this->Cell(0, 10, Translator::t('customer'));
 		$this->SetTextColor(0, 0, 0);
-		$this->renderAddress($this->customer, 113, 33, 9, true);
+		$this->renderAddress($this->customer, 113, 33 + $mt, 9, true);
 
 		// Render end recipient if configured
 		if ($finalRecipient['display']) {
@@ -692,7 +698,7 @@ final class InvoiceGenerator extends TCPDF {
 	public function Header(): void {
 		$this->SetDrawColor(0, 0, 0);
 		$this->SetFont($this->settings->getFont(), '', 12);
-		$this->SetXY(10, 10);
+		$this->SetXY(10, 10 + $this->headerMarginTop);
 
 		// Render document name or default title based on document type
 		if (!empty($this->settings->getDocumentName())) {
@@ -1013,9 +1019,10 @@ final class InvoiceGenerator extends TCPDF {
 				|| ($this->getStringHeight(55, $item->getName()) + $y) >= $pageBreakPoint
 			) {
 				$this->AddPage();
-				$this->yOffset = 0;
+				$allPagesMt = $this->settings->getMarginTopFirstPageOnly() ? 0 : $this->settings->getMarginTop();
+				$this->yOffset = $allPagesMt;
 				$headerReturn = $this->renderTableHeader(30);
-				$y = 32 + $headerReturn;
+				$y = 32 + $headerReturn + $allPagesMt;
 
 				if ($this->settings->getVatPayer()) {
 					$this->SetFont($this->settings->getFont(), '', 8);
@@ -1917,9 +1924,10 @@ final class InvoiceGenerator extends TCPDF {
 		}
 
 		// Signature line
-		$this->signatureY = $y + 35;
-		$this->dashedLine(120, $y + 35, 190, 30);
-		$this->SetXY(120, $y + 35);
+		$smt = $this->settings->getSignatureMarginTop();
+		$this->signatureY = $y + 35 + $smt;
+		$this->dashedLine(120, $y + 35 + $smt, 190, 30);
+		$this->SetXY(120, $y + 35 + $smt);
 		$this->SetFont($this->settings->getFont(), '', 7);
 		$this->Cell(70, 5, Translator::t('stamp_and_signature'), 0, 0, 'C');
 

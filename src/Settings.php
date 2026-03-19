@@ -175,6 +175,12 @@ final class Settings {
 
 	protected bool $hideFooterTexts = false;
 
+	protected float $marginTop = 0;
+
+	protected bool $marginTopFirstPageOnly = true;
+
+	protected float $signatureMarginTop = 0;
+
 	/**
 	 * Gets count of displayed columns
 	 */
@@ -222,6 +228,34 @@ final class Settings {
 
 	public function setHideFooterTexts(bool $value): self {
 		$this->hideFooterTexts = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Sets top margin for page content
+	 *
+	 * Useful when using a larger logo in the header area that needs more vertical space.
+	 *
+	 * @param float $margin Top margin in mm to add before content
+	 * @param bool $firstPageOnly If true, margin applies only to the first page; if false, applies to all pages
+	 */
+	public function setMarginTop(float $margin, bool $firstPageOnly = true): self {
+		$this->marginTop = $margin;
+		$this->marginTopFirstPageOnly = $firstPageOnly;
+
+		return $this;
+	}
+
+	/**
+	 * Sets extra vertical space above the signature line
+	 *
+	 * Useful when a larger stamp or seal image needs to be placed above the signature line.
+	 *
+	 * @param float $margin Extra space in mm above the signature line
+	 */
+	public function setSignatureMarginTop(float $margin): self {
+		$this->signatureMarginTop = $margin;
 
 		return $this;
 	}
@@ -1008,6 +1042,18 @@ final class Settings {
 
 	public function getHideFooterTexts(): bool {
 		return $this->hideFooterTexts;
+	}
+
+	public function getSignatureMarginTop(): float {
+		return $this->signatureMarginTop;
+	}
+
+	public function getMarginTop(): float {
+		return $this->marginTop;
+	}
+
+	public function getMarginTopFirstPageOnly(): bool {
+		return $this->marginTopFirstPageOnly;
 	}
 
 	/**

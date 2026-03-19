@@ -21,12 +21,13 @@ Professional PHP library for generating PDF invoices, proforma invoices, credit 
 - **Multi-language**: Easy localization with translation files
 - **Professional Styling**: Customizable colors, fonts, and branding
 - **Barcode Support**: 1D and 2D barcode generation
+- **Customizable Margins**: Adjustable top margin and signature area spacing
 - **Type Safety**: Full PHP 8.3+ type hints and strict types
 - **Unit Tested**: Comprehensive test coverage with PHPUnit
 
 ## Requirements
 
-- PHP 8.3 or 8.4
+- PHP 8.3, 8.4 or 8.5
 - TCPDF library (automatically installed via Composer)
 - GD extension (for image handling)
 
@@ -271,6 +272,22 @@ Accessed via `$invoice->getSettings()`. All methods return `$this` for chaining.
     string $color = '000000',
     int $dash = 0          // 0=solid, >0=dashed
 ): self
+```
+
+#### Page Margins
+
+```php
+// Set top margin for page content (pushes supplier/customer section down)
+// Useful when using a larger logo in the header area
+->setMarginTop(
+    float $margin,              // Top margin in mm
+    bool $firstPageOnly = true  // true=first page only, false=all pages
+): self
+
+// Set extra space above the signature line
+// Useful when placing a larger stamp or seal above the signature
+->setSignatureMarginTop(float $margin): self
+// Page breaks are handled automatically — footer height is recalculated
 ```
 
 #### Images and Branding
@@ -796,7 +813,7 @@ $invoice->generate();
 - Main class: `WFPfaktury` → `InvoiceGenerator`
 - All method names now use camelCase: `SetX()` → `setX()`
 - All property names translated to English
-- PHP 8.3/8.4 required
+- PHP 8.3+ required
 - Deprecated methods removed
 - Email functionality removed (use external library)
 
@@ -878,8 +895,33 @@ For issues and feature requests, please use the GitHub issue tracker.
 
 ## Version
 
-Current version: **3.0.0**
+Current version: **3.0.6**
 
-Changelog:
-- 3.0.0: Complete refactoring for PHP 8.3+, English API, type safety, unit tests
-- 2.x: Legacy WFPfaktury implementation
+## Changelog
+
+### 3.0.6
+- Added PHP 8.5 support
+- Added `setMarginTop()` — configurable top margin for page content (first page only or all pages), useful for larger logos in the header area
+- Added `setSignatureMarginTop()` — extra vertical space above the signature line for larger stamps or seals
+- Both margin settings are fully integrated with automatic page break calculations
+
+### 3.0.5
+- Fixed QR payment generation from bank account number
+
+### 3.0.4
+- VAT rate for items without a predefined VAT rate will be assigned dynamically
+
+### 3.0.3
+- Added 3 new languages (DE, HU, PL) translations
+- Footer middle text added to translations
+
+### 3.0.2
+- Fixed `setRounding(0)` bug
+- Added `modifyTranslations()` method in Translator
+- Added `setHideFooterTexts()` method in Settings
+
+### 3.0.0
+- Complete refactoring for PHP 8.3+, English API, type safety, unit tests
+
+### 2.x
+- Legacy WFPfaktury implementation
