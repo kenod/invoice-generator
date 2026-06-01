@@ -199,6 +199,12 @@ Accessed via `$invoice->getSettings()`. All methods return `$this` for chaining.
 // Set deposits/advances already paid
 ->setDeposits(float $amount): self
 
+// Show/hide the paid advances (deposits) row
+->setDisplayDeposits(bool $value): self
+// Default: true. When false and deposits are zero, the row is omitted
+// and the "total to pay" box moves up to fill the gap. A non-zero
+// deposit amount is always shown regardless of this setting.
+
 // Set whether amounts include VAT
 ->setAmountsWithVat(bool $value): self
 ```
@@ -895,9 +901,12 @@ For issues and feature requests, please use the GitHub issue tracker.
 
 ## Version
 
-Current version: **3.0.6**
+Current version: **3.0.8**
 
 ## Changelog
+
+### 3.0.8
+- Added `setDisplayDeposits()` — hide the paid advances (deposits) row when it is disabled and the deposit amount is zero; the "total to pay" box shifts up to fill the gap. Non-zero deposits are always shown.
 
 ### 3.0.6
 - Added PHP 8.5 support

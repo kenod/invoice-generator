@@ -41,6 +41,12 @@ final class Settings {
 	protected float $deposits = 0;
 
 	/**
+	 * Whether to display the paid advances (deposits) row.
+	 * When false and deposits are zero, the row is omitted.
+	 */
+	protected bool $displayDeposits = true;
+
+	/**
 	 * Rounding precision (1=crowns, 2=fifties)
 	 */
 	protected int $roundTo = 1;
@@ -276,6 +282,7 @@ final class Settings {
 		$this->documentType = 1;
 		$this->discount = [0, 0, 1, 0, 0];
 		$this->deposits = 0;
+		$this->displayDeposits = true;
 		$this->eet = [];
 
 		return $this;
@@ -754,6 +761,12 @@ final class Settings {
 		return $this;
 	}
 
+	public function setDisplayDeposits(bool $value): self {
+		$this->displayDeposits = $value;
+
+		return $this;
+	}
+
 	public function setItemSpacing(float $spacing): self {
 		$this->itemSpacing = $spacing;
 
@@ -856,6 +869,10 @@ final class Settings {
 
 	public function getDeposits(): float {
 		return $this->deposits;
+	}
+
+	public function getDisplayDeposits(): bool {
+		return $this->displayDeposits;
 	}
 
 	public function getRoundTo(): int {

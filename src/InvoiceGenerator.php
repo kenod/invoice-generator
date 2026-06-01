@@ -1788,21 +1788,26 @@ final class InvoiceGenerator extends TCPDF {
 			'R',
 		);
 
-		// Deposits
-		$this->SetXY($xCoord, $yLastItem + 14);
-		$this->Cell(41, 5, Translator::t('paid_advances'), 0, 0, 'L');
-		$this->SetXY(140 - $xOffset - 1, $yLastItem + 14);
-		$this->Cell(
-			60,
-			5,
-			number_format($this->settings->getDeposits(), 2, ',', ' ') . ' ' . $this->settings->getCurrency(),
-			0,
-			0,
-			'R',
-		);
+		// Deposits — shown unless display is disabled and the amount is zero
+		$depositShift = 0;
+		if ($this->settings->getDisplayDeposits() || abs($this->settings->getDeposits()) > 0.005) {
+			$this->SetXY($xCoord, $yLastItem + 14);
+			$this->Cell(41, 5, Translator::t('paid_advances'), 0, 0, 'L');
+			$this->SetXY(140 - $xOffset - 1, $yLastItem + 14);
+			$this->Cell(
+				60,
+				5,
+				number_format($this->settings->getDeposits(), 2, ',', ' ') . ' ' . $this->settings->getCurrency(),
+				0,
+				0,
+				'R',
+			);
+		} else {
+			$depositShift = -7;
+		}
 
 		// Total to pay
-		$this->SetXY($xCoord, $yLastItem + 22);
+		$this->SetXY($xCoord, $yLastItem + 22 + $depositShift);
 		$style = $this->settings->getStyle();
 		$this->SetFillColor(
 			$style['pricesFillColor'][0],
@@ -1814,10 +1819,10 @@ final class InvoiceGenerator extends TCPDF {
 			$style['pricesFontColor'][1],
 			$style['pricesFontColor'][2],
 		);
-		$this->Rect($xCoord, $yLastItem + 20, 82, 9, 'F', $this->settings->getBorders());
+		$this->Rect($xCoord, $yLastItem + 20 + $depositShift, 82, 9, 'F', $this->settings->getBorders());
 		$this->setCellPaddings(1, 0, 1, 0);
 		$this->Cell(41, 5, Translator::t('total_to_pay'), 0, 0, 'L');
-		$this->SetXY(140 - $xOffset, $yLastItem + 22);
+		$this->SetXY(140 - $xOffset, $yLastItem + 22 + $depositShift);
 
 		$finalAmount = $this->totalPrice - $this->settings->getDeposits();
 

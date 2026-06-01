@@ -65,4 +65,27 @@ final class SettingsTest extends TestCase {
 
 		self::assertFalse($this->settings->getHideFooterTexts());
 	}
+
+	public function testDisplayDepositsDefaultsTrue(): void {
+		self::assertTrue($this->settings->getDisplayDeposits());
+	}
+
+	public function testSetDisplayDepositsReturnsThis(): void {
+		$result = $this->settings->setDisplayDeposits(false);
+
+		self::assertSame($this->settings, $result);
+	}
+
+	public function testSetDisplayDepositsFalse(): void {
+		$this->settings->setDisplayDeposits(false);
+
+		self::assertFalse($this->settings->getDisplayDeposits());
+	}
+
+	public function testClearResetsDisplayDeposits(): void {
+		$this->settings->setDisplayDeposits(false);
+		$this->settings->clear();
+
+		self::assertTrue($this->settings->getDisplayDeposits());
+	}
 }
