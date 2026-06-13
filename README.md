@@ -901,9 +901,12 @@ For issues and feature requests, please use the GitHub issue tracker.
 
 ## Version
 
-Current version: **3.0.8**
+Current version: **3.0.9**
 
 ## Changelog
+
+### 3.0.9
+- Fixed QR payment SPAYD string missing the currency (`CC`) parameter; the currency from settings is now included (ISO 4217), so banking apps no longer default to CZK
 
 ### 3.0.8
 - Added `setDisplayDeposits()` — hide the paid advances (deposits) row when it is disabled and the deposit amount is zero; the "total to pay" box shifts up to fill the gap. Non-zero deposits are always shown.
