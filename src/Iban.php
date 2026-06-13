@@ -93,7 +93,7 @@ final class Iban {
 	/**
 	 * Generates QR payment string for Czech QR payments
 	 *
-	 * @param array{iban: string, bic?: string, amount: string|float, vs?: string, ks?: string, ss?: string} $data Payment data
+	 * @param array{iban: string, bic?: string, amount: string|float, cc?: string, vs?: string, ks?: string, ss?: string} $data Payment data
 	 * @return string|null QR string or null on error
 	 */
 	public static function getQRString(array $data): string|null {
@@ -112,6 +112,10 @@ final class Iban {
 		}
 
 		$qrString .= '*AM:' . round((float) $data['amount'], 2) . '*';
+
+		if (isset($data['cc']) && $data['cc'] !== '') {
+			$qrString .= 'CC:' . strtoupper($data['cc']) . '*';
+		}
 
 		if (isset($data['vs']) && $data['vs'] !== '') {
 			$qrString .= 'X-VS:' . $data['vs'] . '*';

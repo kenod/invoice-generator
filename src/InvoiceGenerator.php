@@ -1877,6 +1877,10 @@ final class InvoiceGenerator extends TCPDF {
 			($this->settings->getDocumentType() === 3 || $this->settings->getDocumentType() === 4) &&
 			count($additionalInfo) > 0
 		) {
+			if ($this->settings->getReverseCharge()) {
+				$y += 5;
+			}
+
 			$this->SetFont($this->settings->getFont(), 'B', 7);
 			$this->SetXY(15, $y + 5);
 			$this->Cell(0, 10, Translator::t('additional_information'));
@@ -2040,6 +2044,7 @@ final class InvoiceGenerator extends TCPDF {
 			'iban' => $iban,
 			'bic' => '',
 			'amount' => (string) $this->calculateTotal(),
+			'cc' => $this->settings->getCurrency(),
 			'vs' => (string) ($variableSymbol[1] ?? ''),
 			'ks' => (string) ($constantSymbol[1] ?? ''),
 			'ss' => (string) ($specificSymbol[1] ?? ''),
